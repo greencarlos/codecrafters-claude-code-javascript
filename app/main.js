@@ -70,7 +70,7 @@ async function main() {
   }
 
   if (response.choices[0].message.tool_calls) {
-    const tool = response.choices[0].message.tool_cools[0];
+    const tool = response.choices[0].message.tool_calls[0];
     const args = JSON.parse(tool.function.arguments);
     const fileBuffer = readFileSync(args.file_path, "utf-8");
     console.log(fileBuffer);

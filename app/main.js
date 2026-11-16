@@ -23,6 +23,25 @@ async function main() {
     model: "anthropic/claude-haiku-4.5",
     messages: [{ role: "user", content: prompt }],
     max_tokens: 1000,
+    tools: [
+      {
+        type: "function",
+        function: {
+          name: "Read",
+          description: "Read and return the contents of  file",
+          parameters: {
+            type: "object",
+            properties: {
+              file_path: {
+                type: "string",
+                description: "The path to the file to read",
+              }
+            },
+            required: ["file_path"],
+          }
+        },
+      }
+    ]
   });
 
   if (!response.choices || response.choices.length === 0) {

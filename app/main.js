@@ -69,7 +69,7 @@ async function main() {
     throw new Error("no choices in response");
   }
 
-  if (response.choices[0].message.tool_calls) {
+ if (response.choices[0].message.tool_calls) {
     const tool = response.choices[0].message.tool_calls[0];
     const args = JSON.parse(tool.function.arguments);
     var fileBuffer = readFileSync(args.file_path, "utf-8");

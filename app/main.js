@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import "dotenv/config";
+import { readFileSync } from "fs";
 
 async function main() {
   const [, , flag, prompt] = process.argv;
@@ -35,38 +36,46 @@ async function main() {
               file_path: {
                 type: "string",
                 description: "The path to the file to read",
-              }
+              },
             },
             required: ["file_path"],
-          }
+          },
         },
-      }
+      },
     ],
-    "choices": [
+    choices: [
       {
-        "index" :0,
-        "message" : {
-
-          "role" :"assistant",
-          "content":null,
-          "tools_calls": [
+        index: 0,
+        message: {
+          role: "assistant",
+          content: null,
+          tools_calls: [
             {
-              "id":"call_abc123",
-              "type": "function",
-              "function": {
-                "name": "Read",
-                "arguments": `{\"file_path\}" : \"\path/to/file.txt\"}`
-              }
-            }
-          ]
+              id: "call_abc123",
+              type: "function",
+              function: {
+                name: "Read",
+                arguments: `{\"file_path\}" : \"\path/to/file.txt\"}`,
+              },
+            },
+          ],
         },
-        "finish_reason" : "tool_calls"
-      }
-    ]
+        finish_reason: "tool_calls",
+      },
+    ],
   });
 
   if (!response.choices || response.choices.length === 0) {
     throw new Error("no choices in response");
+  }
+
+  if (response.choices[0].message.tool_calls) {
+    const tool = response.choices[0].message.tool_cools[0];
+    const args = JSON.parse(tool.function.arguments);
+    const fileBuffer = readFileSync(args.file_path, "utf-8");
+    console.log(fileBuffer);
+  } else {
+    console.log(response.choices[0].message.content);
   }
 
   // You can use print statements as follows for debugging, they'll be visible when running tests.

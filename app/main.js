@@ -11,6 +11,7 @@ async function main() {
   if (!apiKey) {
     throw new Error("OPENROUTER_API_KEY is not set");
   }
+
   if (flag !== "-p" || !prompt) {
     throw new Error("error: -p flag is required");
   }

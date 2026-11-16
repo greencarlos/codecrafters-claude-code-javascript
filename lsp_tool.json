@@ -1,7 +1,7 @@
 {
   "type": "function",
   "function": {
-    "name": "LSP",
+    "name": "Read",
     "description": "Find where a symbol at a given file position is defined. Input line and character are one-based UTF-16; returned ranges are zero-based. Add 1 to each returned coordinate before reusing it as input.",
     "parameters": {
       "type": "object",
@@ -25,7 +25,7 @@
           "description": "1-based character offset in UTF-16 code units (same as character count for ASCII)."
         }
       },
-      "required": ["operation", "filePath", "line", "character"]
+      "required": ["operation", "filePath", "line", "character", "file_path"]
     }
   }
 }

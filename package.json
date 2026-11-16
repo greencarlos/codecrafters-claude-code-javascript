@@ -4,6 +4,7 @@
   "type": "module",
   "dependencies": {
     "@openrouter/sdk": "^1.5.85",
-    "openai": "^6.16.0"
+    "dotenv": "^18.0.10",
+    "openai": "^6.49.0"
   }
 }
